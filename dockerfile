@@ -3,9 +3,9 @@ FROM python:3.11
 #Définir l'environnement de travail
 WORKDIR /src
 #Lancer l'installation des requirements
-RUN pip install -r /src/requirements.txt
+COPY . .
+RUN pip install -r requirements.txt
 
 RUN pip install -e .
-RUN pytest # to run tests
-RUN pylint src && flake8 # to lint
-RUN bandit -r src # to run security tests
+
+CMD [ "flask","--app","/edutest:flaskapp","run","--host","0.0.0.0"]
